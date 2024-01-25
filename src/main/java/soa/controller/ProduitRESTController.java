@@ -1,11 +1,12 @@
 package soa.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import soa.entities.Produit;
 import soa.repository.ProduitRepository;
+
+import java.util.List;
 
 @RestController // pour déclarer un service web de type REST
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,7 +17,7 @@ public class ProduitRESTController {
 
     //  Message d'accueil
     //  http://localhost:8080/produits/index  (GET)
-    @GetMapping(value ="/index" )
+    @GetMapping(value = "/index")
     public String accueil() {
         return "BienVenue au service Web REST 'produits'.....";
     }
@@ -26,11 +27,11 @@ public class ProduitRESTController {
 
     @GetMapping(
             // spécifier le path de la méthode
-            value= "/",
+            value = "/",
             // spécifier le format de retour en XML
-            produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }
+            produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
-    public  List<Produit> getAllProduits() {
+    public List<Produit> getAllProduits() {
         return produitRepos.findAll();
 
     }
@@ -39,12 +40,12 @@ public class ProduitRESTController {
     //  http://localhost:8080/produits/{id} (GET)
     @GetMapping(
             // spécifier le path de la méthode qui englobe un paramètre
-            value= "/{id}" ,
+            value = "/{id}",
             // spécifier le format de retour en XML
-            produces = { MediaType.APPLICATION_JSON_VALUE }
+            produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     public Produit getProduit(@PathVariable Long id) {
-        Produit p =produitRepos.findById(id).get();
+        Produit p = produitRepos.findById(id).get();
         return p;
     }
 
@@ -53,8 +54,7 @@ public class ProduitRESTController {
     @GetMapping(
             // spécifier le path de la méthode
             value = "/delete/{id}")
-    public void deleteProduit(@PathVariable Long id)
-    {
+    public void deleteProduit(@PathVariable Long id) {
         produitRepos.deleteById(id);
     }
 
@@ -62,12 +62,11 @@ public class ProduitRESTController {
     //  http://localhost:8080/produits/   (POST)
     @PostMapping(
             // spécifier le path de la méthode
-            value = "/"  ,
+            value = "/",
             //spécifier le format de retour
-            produces = { MediaType.APPLICATION_JSON_VALUE }
+            produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public Produit saveProduit(@RequestBody Produit p)
-    {
+    public Produit saveProduit(@RequestBody Produit p) {
         return produitRepos.save(p);
     }
 
@@ -75,12 +74,11 @@ public class ProduitRESTController {
     //  http://localhost:8080/produits/   (PUT)
     @PutMapping(
             // spécifier le path de la méthode
-            value = "/"  ,
+            value = "/",
             //spécifier le format de retour
-            produces = { MediaType.APPLICATION_JSON_VALUE  }
+            produces = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public Produit updateProduit(@RequestBody Produit p)
-    {
+    public Produit updateProduit(@RequestBody Produit p) {
         return produitRepos.save(p);
     }
 
@@ -89,8 +87,7 @@ public class ProduitRESTController {
     @DeleteMapping(
             // spécifier le path de la méthode
             value = "/")
-    public void deleteProduit(@RequestBody Produit p)
-    {
+    public void deleteProduit(@RequestBody Produit p) {
         produitRepos.delete(p);
     }
 
